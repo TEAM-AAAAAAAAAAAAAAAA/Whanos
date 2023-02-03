@@ -1,5 +1,5 @@
 variable "gke_username" {
-type = string
+  type = string
   default = "user"
   description = "GKE username"
 }
@@ -21,6 +21,8 @@ resource "google_container_cluster" "gke" {
   location = var.region
   remove_default_node_pool = true
   initial_node_count = 1
-  network = google_compute_network.vpc.name
-  subnetwork = google_compute_subnetwork.subnet.name
+  network = var.vpc_name
+  subnetwork = var.subnet_name
+  # network = module.google_compute_network.vpc.name
+  # subnetwork = module.google_compute_subnetwork.subnet.name
 }

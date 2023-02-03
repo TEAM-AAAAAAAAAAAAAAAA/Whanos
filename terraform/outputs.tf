@@ -1,8 +1,9 @@
-output "cluster_ip" {
-  value = google_container_cluster.gke.endpoint
+output "vpc_ip" {
+  value = module.gcp-vpc
+  description = "value of vpc_id"
 }
 
-resource "local_file" "cluster_ip_file" {
-  content = output.cluster_ip.value
-    filename = "cluster_ip.txt"
+output "cluster_ip" {
+  value = module.gcp-google-kubernetes-engine.cluster_ip
+  description = "value of cluster_ip"
 }

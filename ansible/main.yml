@@ -1,0 +1,68 @@
+---
+- hosts: localhost
+  connection: local
+  collections:
+    - kubernetes.core
+  tasks:
+    - name: Ensure default namespace exists
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          api_version: apps/v1
+          kind: Namespace
+          metadata:
+            name: default
+            labels:
+              name: default
+    - name: Create webserver service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          api_version: v1
+          kind: Service
+          metadata:
+            name: whoa-webserver-service
+            namespace: default
+          spec:
+            selector:
+              app: webserver
+            ports:
+              - protocol: TCP
+                port: 80
+                targetPort: 80
+
+    - name: Create webserver deployment
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          api_version: apps/v1
+          kind: Deployment
+          metadata:
+            name: whoa-webserver-deployment
+            namespace: default
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: webserver
+            template:
+              metadata:
+                labels:
+                  app: webserver
+              spec:
+                restartPolicy: Always
+                containers:
+                  - name: webserver
+                    image: nginx:latest
+                    ports:
+                      - containerPort: 80
+                    ressources:
+                      limits:
+                        cpu: 100m
+                        memory: 128Mi
+                      requests:
+                        cpu: 100m
+                        memory: 128Mi
+
+
+                        with_fileglob

@@ -46,7 +46,12 @@ module "gcp-vpc" {
   project_id = var.project_id
 }
 
-# resource "local_file" "cluster_ip_file" {
-#   content = 
-#   filename = "cluster_ip.txt"
-# }
+resource "local_file" "cluster_ip_file" {
+  content = module.gcp-google-kubernetes-engine.cluster_ip
+  filename = "../cluster_ip.txt"
+}
+
+resource "local_file" "cluster_ca_certificate" {
+  content = module.gcp-google-kubernetes-engine.cluster_ca_certificate
+  filename = "../cluster_ca_certificate.txt"
+}

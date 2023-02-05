@@ -1,0 +1,7 @@
+apiVersion: apps/v1
+kind: Deployment
+Namespace: jenkins
+metadata:
+  name: jenkins
+  labels:
+    app: jenkins

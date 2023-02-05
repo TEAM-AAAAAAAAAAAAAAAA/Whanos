@@ -1,3 +1,3 @@
-project_id = "onyx-course-376522"
+project_id = "nomadic-mesh-376709"
 region = "europe-west4"
 

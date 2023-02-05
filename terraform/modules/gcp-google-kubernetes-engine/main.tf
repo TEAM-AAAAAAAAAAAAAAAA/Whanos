@@ -17,6 +17,9 @@ variable "num_nodes" {
 }
 
 resource "google_container_cluster" "gke" {
+  node_locations = [
+    "${var.region}-a"
+  ]
   name                     = "${var.project_id}-gke"
   location                 = var.region
   remove_default_node_pool = true

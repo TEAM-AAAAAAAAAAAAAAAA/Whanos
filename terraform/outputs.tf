@@ -1,3 +1,5 @@
+---
+
 output "vpc_ip" {
   value = module.gcp-vpc
   description = "value of vpc_id"
@@ -17,4 +19,3 @@ output "cluster_name" {
   value = module.gcp-google-kubernetes-engine.cluster_name
   description = "value of cluster_name"
 }
-

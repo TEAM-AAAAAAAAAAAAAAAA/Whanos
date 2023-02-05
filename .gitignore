@@ -1,1 +1,3 @@
 terraform/.terraform
+cluster_ca_certificate.txt
+cluster_ip.txt

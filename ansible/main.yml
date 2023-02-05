@@ -1,9 +1,13 @@
 ---
+
+# with_fileglob
+
 - hosts: localhost
   connection: local
   collections:
     - kubernetes.core
   tasks:
+
     - name: Ensure default namespace exists
       kubernetes.core.k8s:
         state: present
@@ -14,6 +18,7 @@
             name: default
             labels:
               name: default
+
     - name: Create webserver service
       kubernetes.core.k8s:
         state: present
@@ -63,6 +68,3 @@
                       requests:
                         cpu: 100m
                         memory: 128Mi
-
-
-                        with_fileglob

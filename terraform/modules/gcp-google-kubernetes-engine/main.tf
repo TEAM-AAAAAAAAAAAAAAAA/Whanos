@@ -1,3 +1,5 @@
+---
+
 variable "gke_username" {
   type = string
   default = "user"

@@ -1,2 +1,5 @@
 dockerfile-lint:
-	@hadolint --ignore DL3006 jenkins/images/*/*
+	@find . -type f -name "*.base" -o -name "*.standalone" -exec hadolint --ignore DL3006 {} \;
+
+terraform-fmt:
+	@find . -type f -name "*.tf" -exec terraform fmt {} \;

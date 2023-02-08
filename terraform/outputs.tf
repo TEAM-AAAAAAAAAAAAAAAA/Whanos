@@ -17,3 +17,8 @@ output "cluster_name" {
   value       = module.gcp-google-kubernetes-engine.cluster_name
   description = "value of cluster_name"
 }
+
+output "jenkins_ip" {
+  value       = module.gcp-google-cloud-registry.jenkins_ip
+  description = "value of jenkins_ip"
+}

@@ -1,2 +1,8 @@
+terraform/.terraform
+terraform/.terraform.lock.hcl
+cluster_ca_certificate.txt
+cluster_ip.txt
+whanos_gcp_creds.json
+
 Dockerfile
 docker-compose.yml

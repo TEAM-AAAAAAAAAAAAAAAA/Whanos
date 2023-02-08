@@ -1,1 +1,9 @@
 FROM whanos-javascript
+
+COPY . /app
+
+WORKDIR /app
+
+RUN npm i
+
+CMD [ "node", "." ]

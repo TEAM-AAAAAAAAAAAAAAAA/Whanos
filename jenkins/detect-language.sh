@@ -17,14 +17,15 @@ for language in "${languages_criteria[@]}"; do
         fi
     fi
     if [[ -f $language ]]; then
-        language_found=(${language_found[@]} $language)
+        language_found=(${language_found[@]} ${available_languages[$index]})
         language_index=$index
     fi
     let "index++"
 done
+unset language_found[0]
 
-if [[ ${#language_found[@]} > 2 ]]; then
-    echo "Multiple projects found"
+if [[ ${#language_found[@]} > 1 ]]; then
+    echo "Multiple projects found (${language_found[@]})"
     exit 1
 fi
 

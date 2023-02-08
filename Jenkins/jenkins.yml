@@ -1,0 +1,50 @@
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+
+jenkins:
+  remotingSecurity:
+    enabled: true
+  systemMessage: "Welcome to the Whanos Jenkins Instance."
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - name: "Admin"
+          id: "admin"
+          password: ${USER_ADMIN_PASSWORD}
+        - name: "Thomas"
+          id: "thomas"
+          password: ${USER_THOMAS_PASSWORD}
+        - name: "Constant"
+          id: "constant"
+          password: ${USER_CONSTANT_PASSWORD}
+        - name: "Nathan"
+          id: "nathan"
+          password: ${USER_NATHAN_PASSWORD}
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "Admin"
+            description: "Whanos master"
+            permissions:
+              - "Overall/Administer"
+            assignments:
+              - "admin"
+          - name: "Developper"
+            description: "Whanos Developper"
+            permissions:
+              - "Job/Build"
+              - "Job/Workspace"
+              - "Job/Read"
+              - "Job/Create"
+              - "Job/Cancel"
+              - "Job/Configure"
+              - "Job/Delete"
+              - "Job/Move"
+              - "Overall/Read"
+            assignments:
+              - "thomas"
+              - "nathan"
+              - "constant"

@@ -10,8 +10,8 @@ variable "vpc_name" {
 }
 
 variable "service_account_email" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "value for service account email"
 }
 

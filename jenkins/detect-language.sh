@@ -1,6 +1,5 @@
 #/bin/bash
 
-# Create a table named "available_languages" with these columns: "C", "java", "javascript", "python", "befunge", "go"
 available_languages=("C" "java" "javascript" "python" "befunge" "go" NONE)
 languages_criteria=("Makefile" "pom.xml" "package.json" "requirements.txt" "main.bf" "main.go" NONE)
 script_to_run=("deploy_c.sh" "deploy_java.sh" "deploy_javascript.sh" "deploy_python.sh" "deploy_befunge.sh" "deploy_go.sh" NONE)

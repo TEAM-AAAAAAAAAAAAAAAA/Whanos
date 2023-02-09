@@ -1,1 +1,5 @@
 FROM python:3.10-alpine3.17@sha256:c69d5dfc1909d980947efa9d8f646bce3a31cf67109d3b9952d166d5d1ce2f2d
+
+WORKDIR /app
+
+SHELL [ "/bin/sh", "-c" ]

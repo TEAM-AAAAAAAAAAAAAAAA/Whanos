@@ -1,1 +1,5 @@
 FROM esolang/befunge93@sha256:d0b8dccfa63f40582473c09b594fc96f781e64743dad039d42661eb7394654e3
+
+WORKDIR /app
+
+SHELL [ "/bin/sh", "-c" ]

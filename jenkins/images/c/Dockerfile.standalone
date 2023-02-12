@@ -1,1 +1,9 @@
 FROM whanos-c
+
+SHELL [ "/bin/sh", "-c" ]
+
+COPY . /app
+
+WORKDIR /app
+
+CMD [ "make" ]

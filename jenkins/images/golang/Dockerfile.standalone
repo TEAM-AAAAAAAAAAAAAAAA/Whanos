@@ -1,1 +1,9 @@
 FROM whanos-golang
+
+SHELL [ "/bin/sh", "-c" ]
+
+COPY . /app
+
+WORKDIR /app
+
+CMD [ "go", "build" ]

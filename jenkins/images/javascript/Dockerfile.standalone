@@ -1,5 +1,7 @@
 FROM whanos-javascript
 
+SHELL [ "/bin/sh", "-c" ]
+
 COPY . /app
 
 WORKDIR /app

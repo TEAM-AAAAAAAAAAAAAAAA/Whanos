@@ -1,5 +1,7 @@
 FROM whanos-java
 
+SHELL [ "/bin/sh", "-c" ]
+
 COPY . /app
 
 WORKDIR /app

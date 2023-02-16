@@ -2,4 +2,5 @@ FROM python:3.10-alpine3.17@sha256:c69d5dfc1909d980947efa9d8f646bce3a31cf67109d3
 
 WORKDIR /app
 
+RUN pip3 install --no-cache-dir -r requirements.txt
 SHELL [ "/bin/sh", "-c" ]

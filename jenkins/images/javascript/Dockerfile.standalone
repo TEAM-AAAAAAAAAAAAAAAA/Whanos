@@ -6,6 +6,6 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm i
+ONBUILD npm i
 
 CMD [ "node", "." ]

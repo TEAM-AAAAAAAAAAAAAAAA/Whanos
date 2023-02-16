@@ -1,7 +1,5 @@
 FROM whanos-befunge
 
-SHELL [ "/bin/sh", "-c" ]
-
 COPY . /app
 
 WORKDIR /app

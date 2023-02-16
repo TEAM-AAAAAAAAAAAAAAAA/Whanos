@@ -1,7 +1,5 @@
 FROM whanos-python
 
-SHELL [ "/bin/sh", "-c" ]
-
 COPY . /app
 
 WORKDIR /app

@@ -48,3 +48,5 @@ jenkins:
               - "thomas"
               - "nathan"
               - "constant"
+jobs:
+  - file: /var/jenkins_home/link_project.groovy

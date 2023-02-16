@@ -1,11 +1,11 @@
-job('Link-project') {
+job('/link-project') {
     parameters{
         stringParam('GIT_URL', null, 'Git URL')
         stringParam('DISPLAY_NAME', null, 'Display Name')
     }
     steps {
         dsl('''
-job("$DISPLAY_NAME") {
+job("/$DISPLAY_NAME") {
     scm {
         git {
             remote {

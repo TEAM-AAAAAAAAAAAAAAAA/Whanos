@@ -1,0 +1,7 @@
+FROM whanos-befunge
+
+WORKDIR /app
+
+COPY . ./
+
+CMD [ "node", "b93.js", "main.bf" ]

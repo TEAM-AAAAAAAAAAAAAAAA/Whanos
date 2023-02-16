@@ -1,0 +1,5 @@
+FROM whanos-java
+
+WORKDIR /app
+
+CMD [ "java", "-jar", "app.jar" ]

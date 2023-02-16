@@ -24,7 +24,7 @@ for language in "${languages_criteria[@]}"; do
 done
 unset language_found[0]
 
-if [[ ${#language_found[@]} > 1 ]]; then
+if [[ ${#language_found[@]} -gt 1 ]]; then
     echo "Multiple projects found (${language_found[@]})"
     exit 1
 fi

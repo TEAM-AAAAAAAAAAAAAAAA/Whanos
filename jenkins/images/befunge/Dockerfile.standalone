@@ -1,3 +1,11 @@
 FROM whanos-befunge
 
 SHELL [ "/bin/sh", "-c" ]
+
+COPY . /app
+
+WORKDIR /app
+
+RUN npm install befunge93@^1.0.5
+
+CMD [ "node", "b93.js", "main.bf" ]

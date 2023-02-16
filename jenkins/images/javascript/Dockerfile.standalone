@@ -1,0 +1,5 @@
+FROM whanos-javascript
+
+WORKDIR /app
+
+CMD [ "node", "." ]

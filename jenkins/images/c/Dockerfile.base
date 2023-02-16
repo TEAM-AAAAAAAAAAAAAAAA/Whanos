@@ -1,0 +1,3 @@
+FROM gcc:11.2.0@sha256:0eaeaee298c154ecd383cabe5301a5df9fde0cd3a729124caf574500b936389b
+
+WORKDIR /app

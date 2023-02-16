@@ -1,0 +1,5 @@
+FROM whanos-python
+
+WORKDIR /app
+
+CMD [ "python", "-m", "app" ]

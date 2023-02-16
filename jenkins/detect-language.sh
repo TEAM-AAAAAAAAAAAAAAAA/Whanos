@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 available_languages=("C" "java" "javascript" "python" "befunge" "go" NONE)
 languages_criteria=("Makefile" "pom.xml" "package.json" "requirements.txt" "main.bf" "main.go" NONE)

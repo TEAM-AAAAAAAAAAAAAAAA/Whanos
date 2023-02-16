@@ -50,3 +50,4 @@ jenkins:
               - "constant"
 jobs:
   - file: /var/jenkins_home/link_project.groovy
+  - file: /var/jenkins_home/build_base_image.groovy

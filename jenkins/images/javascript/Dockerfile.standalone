@@ -1,9 +1,5 @@
 FROM whanos-javascript
 
-COPY . /app
-
 WORKDIR /app
-
-ONBUILD npm i
 
 CMD [ "node", "." ]

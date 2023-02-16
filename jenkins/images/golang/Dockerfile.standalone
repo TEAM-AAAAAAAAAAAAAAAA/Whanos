@@ -1,7 +1,5 @@
 FROM whanos-golang
 
-COPY . /app
-
 WORKDIR /app
 
 CMD [ "go", "build" ]

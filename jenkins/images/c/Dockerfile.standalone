@@ -1,7 +1,5 @@
 FROM whanos-c
 
-COPY . /app
-
 WORKDIR /app
 
 CMD [ "make" ]

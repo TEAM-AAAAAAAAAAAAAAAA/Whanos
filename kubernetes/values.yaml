@@ -68,6 +68,10 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+ports: []
+
+replicas: 1
+
 autoscaling:
   enabled: false
   minReplicas: 1

@@ -1,6 +1,11 @@
 apiVersion: v2
 name: whanos
 description: A Helm chart for Kubernetes
+maintainers:
+  - name: TEAM-AAAAAAAAAAAAAAAA
+sources: 
+  - https://github.com/TEAM-AAAAAAAAAAAAAAAA/Whanos
+icon: https://helm.sh/img/helm.svg
 
 # A chart can be either an 'application' or a 'library' chart.
 #

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "whanos.fullname" . }}
+  name: {{ include "whanos.fullname" . }}-deploy
   labels:
     {{- include "whanos.labels" . | nindent 4 }}
 spec:

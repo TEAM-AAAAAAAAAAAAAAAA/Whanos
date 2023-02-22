@@ -26,32 +26,45 @@ provider "kubernetes" {
   cluster_ca_certificate = google_container_cluster.primary.master_auth.0.cluster_ca_certificate
 }
 
-module "gcp-google-cloud-registry" {
+module "gcp_google_cloud_registry" {
   source     = "./modules/gcp-google-cloud-registry"
   region     = var.region
   project_id = var.project_id
 }
 
-module "gcp-google-kubernetes-engine" {
+module "gcp_google_kubernetes_engine" {
   source      = "./modules/gcp-google-kubernetes-engine"
   region      = var.region
   project_id  = var.project_id
-  vpc_name    = module.gcp-vpc.vpc_id
-  subnet_name = module.gcp-vpc.subnet_id
+  vpc_name    = module.gcp_vpc.vpc_id
+  subnet_name = module.gcp_vpc.subnet_id
 }
 
-module "gcp-vpc" {
+module "gcp_vpc" {
   source     = "./modules/gcp-vpc"
   region     = var.region
   project_id = var.project_id
 }
 
+module "gcp_compute_instance" {
+  source     = "./modules/gcp-compute-instance"
+  region     = var.region
+  project_id = var.project_id
+  vpc = {
+    network_name = module.gcp_vpc.vpc_network_name
+    subnet_name  = module.gcp_vpc.vpc_subnet_name
+  }
+  user = var.user
+  private_key = var.private_key
+  service_account_email = var.service_account_email
+}
+
 resource "local_file" "cluster_ip_file" {
-  content  = module.gcp-google-kubernetes-engine.cluster_ip
+  content  = module.gcp_google_kubernetes_engine.cluster_ip
   filename = "../cluster_ip.txt"
 }
 
 resource "local_file" "cluster_ca_certificate" {
-  content  = module.gcp-google-kubernetes-engine.cluster_ca_certificate
+  content  = module.gcp_google_kubernetes_engine.cluster_ca_certificate
   filename = "../cluster_ca_certificate.txt"
 }

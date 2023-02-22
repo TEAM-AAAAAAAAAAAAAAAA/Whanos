@@ -7,7 +7,7 @@ available_languages = ['c', 'java', 'javascript', 'python', 'befunge', 'go']
 for (language in available_languages) {
     job("/Whanos base images/whanos-${language}") {
         steps {
-            shell("docker build /images/${language} -t whanos-${language} -f /images/${language}/whanos-${language}/Dockerfile.base")
+            shell("docker build /images/${language} -t whanos-${language} -f /images/${language}/Dockerfile.base")
         }
     }
 }

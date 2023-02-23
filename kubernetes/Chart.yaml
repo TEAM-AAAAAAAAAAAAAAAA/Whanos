@@ -1,9 +1,9 @@
 apiVersion: v2
-name: whanos
+name: kubernetes
 description: A Helm chart for Kubernetes
 maintainers:
   - name: TEAM-AAAAAAAAAAAAAAAA
-sources: 
+sources:
   - https://github.com/TEAM-AAAAAAAAAAAAAAAA/Whanos
 icon: https://helm.sh/img/helm.svg
 

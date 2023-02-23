@@ -1,5 +1,0 @@
-FROM whanos-golang
-
-WORKDIR /app
-
-CMD [ "go", "build" ]

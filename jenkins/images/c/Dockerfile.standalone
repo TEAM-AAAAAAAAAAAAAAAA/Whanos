@@ -1,5 +1,0 @@
-FROM whanos-c
-
-WORKDIR /app
-
-CMD [ "make" ]

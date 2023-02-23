@@ -1,4 +1,18 @@
-FROM maven:3.8-openjdk-17-slim@sha256:502e781d39f0b40fbd02eb23f5b7663618b76ba52034da218c64e92f6c5647be
+FROM maven:3.8-openjdk-17-slim@sha256:502e781d39f0b40fbd02eb23f5b7663618b76ba52034da218c64e92f6c5647be as builder
+
+COPY . /app
+
+WORKDIR /app
+
+RUN mvn dependency:resolve -f app/pom.xml
+
+RUN mvn package -f app/pom.xml
+
+RUN app/target/app.jar .
+
+RUN rm -rf app/
+
+COPY --from=builder /app /app
 
 WORKDIR /app
 

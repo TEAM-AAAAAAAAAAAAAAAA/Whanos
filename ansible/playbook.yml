@@ -1,15 +1,22 @@
 ---
 - name: Deploy jenkins
   hosts: jenkins
-#  environment:
-#    POSTGRESQL_USER: paul
+  environment:
+    USER_ADMIN_PASSWORD: paul
+    JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
   become: true
   tasks:
-    - name: Install Jenkins
-      ansible.builtin.shell: "{{ playbook_dir }}/../scripts/install-jenkins.sh"
-    #  become_user: root
-      become: true
-      changed_when: false
+    - name: Upload scripts
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../scripts"
+        dest: "/"
+        mode: "preserve"
+
+    # - name: Install Jenkins
+    #   ansible.builtin.shell: "/install-jenkins.sh"
+    # #  become_user: root
+    #   become: true
+    #   changed_when: false
 
     - name: Upload Docker images
       ansible.builtin.copy:
@@ -26,6 +33,19 @@
         src: "{{ playbook_dir }}/../jenkins/jobs/"
         dest: /var/lib/jenkins
         mode: preserve
+
+    # - name: Upload jcasc
+    #   ansible.builtin.copy:
+    #     src: "{{ playbook_dir }}/../jenkins/jenkins.yml"
+    #     dest: /var/lib/jenkins
+    #     mode: preserve
+
+    - name: Install Docker
+      ansible.builtin.shell: /scripts/install-docker.sh
+
+    - name: Install Helm
+      ansible.builtin.shell: "/scripts/install-helm.sh"
+
     - name: Restart jenkins
       ansible.builtin.service:
         name: jenkins

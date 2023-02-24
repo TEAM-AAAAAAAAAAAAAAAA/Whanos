@@ -4,13 +4,9 @@ COPY . /app
 
 WORKDIR /app
 
-RUN mvn dependency:resolve -f app/pom.xml
+RUN mvn dependency:resolve -f app/pom.xml && mvn package -f app/pom.xml && app/target/app.jar . && rm -rf app/
 
-RUN mvn package -f app/pom.xml
-
-RUN app/target/app.jar .
-
-RUN rm -rf app/
+FROM openjdk:8-jre-alpine
 
 COPY --from=builder /app /app
 

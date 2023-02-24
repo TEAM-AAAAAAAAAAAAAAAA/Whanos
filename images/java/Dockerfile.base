@@ -12,4 +12,6 @@ ONBUILD RUN app/target/app.jar .
 
 ONBUILD RUN rm -rf app/
 
+FROM openjdk:8-jre-alpine
+
 ONBUILD CMD ["java", "-jar", "app.jar"]

@@ -1,14 +1,14 @@
 ansible-lint:
-	@find . -type f -name "*.base" -o -name "*.standalone" -exec ansible-lint {} \;
+	@find ansible -type f -name "*.yml" -exec ansible-lint {} \;
 
 dockerfile-lint:
-	@find . -type f -name "*.base" -o -name "*.standalone" -exec hadolint --ignore DL3006 {} \;
+	@find images -type f -name "*.base" -o -name "*.standalone" -exec hadolint --ignore DL3006 {} \;
 
 helm-lint:
 	@helm lint kubernetes
 
 terraform-fmt:
-	@find . -type f -name "*.tf" -exec terraform fmt {} \;
+	@find terraform -type f -name "*.tf" -exec terraform fmt {} \;
 
 tests-docker:
 	@./tests/docker.sh

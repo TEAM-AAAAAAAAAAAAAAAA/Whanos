@@ -4,5 +4,32 @@
 #  environment:
 #    POSTGRESQL_USER: paul
   become: true
-  roles:
-    - base
+  tasks:
+    - name: Install Jenkins
+      ansible.builtin.shell: "{{ playbook_dir }}/../../install-jenkins.sh"
+    #  become_user: root
+      become: true
+      changed_when: false
+
+    - name: Upload Docker images
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../../images"
+        dest: /var/lib/jenkins
+        mode: preserve
+    #  become_user: root
+      become: true
+    #  register:
+    #  when: install_postgres_server
+
+  # - name: Restart postgresql service
+  #   service:
+  #     name: postgresql
+  #     state: restarted
+
+  # - name: Create db user
+  #   postgresql_user:
+  #     name: paul
+  #     password: "{{ db_password }}"
+  #     state: present
+  #   become: true
+  #   become_user: postgres

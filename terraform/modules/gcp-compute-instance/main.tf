@@ -39,7 +39,7 @@ resource "google_compute_instance" "jenkins_server" {
   }
 
   network_interface {
-    network = var.vpc.network_name
+    network    = var.vpc.network_name
     subnetwork = var.vpc.subnet_name
     access_config {
       nat_ip = google_compute_address.jenkins_static_ip.address

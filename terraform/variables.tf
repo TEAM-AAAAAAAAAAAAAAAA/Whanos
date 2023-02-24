@@ -18,6 +18,6 @@ variable "service_account_email" {
 }
 
 variable "private_key" {
-  type = string
+  type        = string
   description = "private key for service account"
 }

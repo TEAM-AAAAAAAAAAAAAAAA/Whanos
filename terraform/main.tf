@@ -54,8 +54,8 @@ module "gcp_compute_instance" {
     network_name = module.gcp_vpc.vpc_network_name
     subnet_name  = module.gcp_vpc.vpc_subnet_name
   }
-  user = var.user
-  private_key = var.private_key
+  user                  = var.user
+  private_key           = var.private_key
   service_account_email = var.service_account_email
 }
 
@@ -67,7 +67,7 @@ resource "local_file" "cluster_ip_file" {
 resource "local_file" "ansible_inventory" {
   content = templatefile("inventory.tpl",
     {
-        JENKINS_GCP_INSTANCE_IP = module.gcp_compute_instance.jenkins_ip
+      JENKINS_GCP_INSTANCE_IP = module.gcp_compute_instance.jenkins_ip
     }
   )
   filename = "../inventory.ini"

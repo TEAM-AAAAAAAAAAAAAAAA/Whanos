@@ -9,11 +9,11 @@ output "subnet_id" {
 }
 
 output "vpc_network_name" {
-  value = google_compute_network.vpc.name
+  value       = google_compute_network.vpc.name
   description = "value of vpc_network_name"
 }
 
 output "vpc_subnet_name" {
-  value = google_compute_subnetwork.subnet.name
+  value       = google_compute_subnetwork.subnet.name
   description = "value of vpc_subnet_name"
 }

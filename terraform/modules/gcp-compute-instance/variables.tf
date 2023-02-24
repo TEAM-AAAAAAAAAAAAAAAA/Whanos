@@ -9,9 +9,9 @@ variable "region" {
 }
 
 variable "vpc" {
-  type        = object({
-   network_name = string
-   subnet_name  = string
+  type = object({
+    network_name = string
+    subnet_name  = string
   })
 }
 

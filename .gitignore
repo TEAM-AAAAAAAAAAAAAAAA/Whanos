@@ -4,6 +4,7 @@ terraform/variables.tf
 cluster_ca_certificate.txt
 cluster_ip.txt
 whanos_gcp_creds.json
+inventory.ini
 
 Dockerfile
 docker-compose.yml

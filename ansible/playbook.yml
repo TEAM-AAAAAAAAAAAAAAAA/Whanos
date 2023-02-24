@@ -34,6 +34,18 @@
         dest: /var/lib/jenkins
         mode: preserve
 
+    - name: Upload jenkins scripts
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../jenkins/scripts"
+        dest: /var/lib/jenkins/jobs
+        mode: preserve
+
+    - name: Upload kubernetes
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../kubernetes"
+        dest: /var/lib/jenkins
+        mode: preserve
+
     # - name: Upload jcasc
     #   ansible.builtin.copy:
     #     src: "{{ playbook_dir }}/../jenkins/jenkins.yml"

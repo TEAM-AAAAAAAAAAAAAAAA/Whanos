@@ -30,10 +30,7 @@ job("/Projects/$DISPLAY_NAME") {
         preBuildCleanup()
     }
     steps {
-        // Find the language of the project
-        // Check if the project has changed
-        // If the project has changed, deploy the project on a kubernetes cluster
-        shell('echo "Hello World"')
+        shell('/var/lib/jenkins/jobs/scripts/detect-language.sh')
     }
 }'''.stripIndent())
     }

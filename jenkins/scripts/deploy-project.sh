@@ -6,7 +6,7 @@ GCP_PROJECT_ID=$1
 REPO_LANGUAGE=$2
 
 [ -f whanos.yml ] && \
-helm upgrade whanos-"$REPO_LANGUAGE" ./kubernetes \
+helm upgrade whanos-"$REPO_LANGUAGE" /var/lib/jenkins/kubernetes \
 --set image.name=whanos-"$REPO_LANGUAGE" \
 --set image.image="$GCP_PROJECT_ID"/whanos-"$REPO_LANGUAGE" \
 -f whanos.yml

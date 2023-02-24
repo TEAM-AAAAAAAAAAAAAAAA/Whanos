@@ -31,4 +31,4 @@ fi
 
 echo "Found ${available_languages[$language_index]}"
 echo "Running ${script_to_run[$language_index]}"
-bash ${script_to_run[$language_index]}
+bash -c "/var/lib/jenkins/jobs/scripts/deploy-project.sh nomadic-mesh-376709 $language_index"

@@ -4,8 +4,6 @@ COPY . /app
 
 WORKDIR /app
 
-RUN make
-
-RUN rm -rf app Makefile
+RUN make && rm -rf app Makefile
 
 CMD ["./compiled-app"]

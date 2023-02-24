@@ -42,6 +42,7 @@
 
     - name: Install Docker
       ansible.builtin.shell: /scripts/install-docker.sh
+      become: true
 
     - name: Install Helm
       ansible.builtin.shell: "/scripts/install-helm.sh"

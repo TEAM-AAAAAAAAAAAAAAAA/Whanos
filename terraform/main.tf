@@ -64,6 +64,15 @@ resource "local_file" "cluster_ip_file" {
   filename = "../cluster_ip.txt"
 }
 
+resource "local_file" "ansible_inventory" {
+  content = templatefile("inventory.tpl",
+    {
+        JENKINS_GCP_INSTANCE_IP = module.gcp_compute_instance.jenkins_ip
+    }
+  )
+  filename = "../inventory.ini"
+}
+
 resource "local_file" "cluster_ca_certificate" {
   content  = module.gcp_google_kubernetes_engine.cluster_ca_certificate
   filename = "../cluster_ca_certificate.txt"

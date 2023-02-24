@@ -26,17 +26,6 @@ resource "google_compute_address" "jenkins_static_ip" {
   region  = var.region
 }
 
-data "cloudinit_config" "jenkins_instance_config" {
-  gzip = false
-  base64_encode = false
-
-  part {
-    content_type = "text/cloud-config"
-    filename     = "jenkins.yml"
-    content      = file("${path.module}/../../../scripts/cloud_init_jenkins.yml")
-  }
-}
-
 resource "google_compute_instance" "jenkins_server" {
   name         = "jenkins-server"
   machine_type = "n1-standard-1"
@@ -55,9 +44,5 @@ resource "google_compute_instance" "jenkins_server" {
     access_config {
       nat_ip = google_compute_address.jenkins_static_ip.address
     }
-  }
-
-  metadata = {
-    user-data = "${data.cloudinit_config.jenkins_instance_config.rendered}"
   }
 }

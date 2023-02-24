@@ -2,20 +2,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
   annotations:
     rollme: {{ randAlphaNum 5 | quote }}
+  name: {{ .Release.Name }}-deploy_build
 spec:
-  replicas: {{ .Values.deploy_build.replicas }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}
   template:
-    metadata:
-      labels:
-        app: {{ .Release.Name }}
-      annotations:
-        rollme: {{ randAlphaNum 5 | quote }}
     spec:
 #        - name: {{ .Chart.Name }}
 #          securityContext:
@@ -47,7 +41,17 @@ spec:
           - containerPort: {{ . }}
           {{- end }}
         {{- end }}
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+  replicas: {{ .Values.deploy_build.replicas }}
+
+{{- if .Values.deploy_build.ports }}
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,3 +67,4 @@ spec:
     {{- end }}
   selector:
     app: {{ .Release.Name }}
+{{- end }}

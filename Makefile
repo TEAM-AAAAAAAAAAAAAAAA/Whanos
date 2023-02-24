@@ -1,5 +1,8 @@
+ansible-lint:
+	@find . -type f -name "*.base" -o -name "*.standalone" -exec ansible-lint {} \;
+
 dockerfile-lint:
-	@find . -type f -name "*.base" -o -name "*.standalone" -exec ./hadolint --ignore DL3006 {} \;
+	@find . -type f -name "*.base" -o -name "*.standalone" -exec hadolint --ignore DL3006 {} \;
 
 helm-lint:
 	@helm lint kubernetes

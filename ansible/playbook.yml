@@ -1,3 +1,8 @@
 ---
 - name: Deploy jenkins
   hosts: jenkins
+#  environment:
+#    POSTGRESQL_USER: paul
+  become: true
+  roles:
+    - base

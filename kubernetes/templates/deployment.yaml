@@ -1,78 +1,65 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "whanos.fullname" . }}-deploy
-  labels:
-    {{- include "whanos.labels" . | nindent 4 }}
+  name: {{ .Release.Name }}-deployment
+  annotations:
+    rollme: {{ randAlphaNum 5 | quote }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .Values.deploy_build.replicas }}
   selector:
     matchLabels:
-      {{- include "whanos.selectorLabels" . | nindent 6 }}
+      app: {{ .Release.Name }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "whanos.selectorLabels" . | nindent 8 }}
+        app: {{ .Release.Name }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "whanos.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+#        - name: {{ .Chart.Name }}
+#          securityContext:
+#            {{- toYaml .Values.securityContext | nindent 12 }}
+#          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+#          imagePullPolicy: {{ .Values.image.pullPolicy }}
+#          ports:
+#            - name: http
+#              containerPort: {{ .Values.service.port }}
+#              protocol: TCP
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          resources:
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-
+      - name: {{ .Values.image.name }}
+        image: {{ .Values.image.image }}
+        {{- if .Values.deploy_build.resources }}
+        resources: {{ .Values.deploy_build.resources | toJson }}
+        {{- end }}
+        {{- if .Values.deploy_build.ports }}
+        ports:
+          {{- range .Values.deploy_build.ports }}
+          - containerPort: {{ . }}
+          {{- end }}
+        {{- end }}
 ---
-
-# https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "whanos.fullname" . }}-load-balancer
+  name: {{ .Release.Name }}-lb
 spec:
   type: LoadBalancer
-  selector:
-    app: {{ include "whanos.fullname" . }}
   ports:
-  - name: node
-    port: {{ .Values.port }}
-    targetPort: node
+    {{- range .Values.deploy_build.ports }}
+    - targetPort: {{ . }}
+      protocol: TCP
+      port: {{ . }}
+      name: {{ . | quote }}
+    {{- end }}
+  selector:
+    app: {{ .Release.Name }}

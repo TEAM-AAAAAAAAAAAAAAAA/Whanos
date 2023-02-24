@@ -2,9 +2,10 @@ FROM node:14.17.5-alpine3.14@sha256:572619bd5534df6a4330126cd4ad3fcfeaa7e53e4dfd
 
 RUN npm install befunge93@^1.0.5
 
-RUN wget https://github.com/TEAM-AAAAAAAAAAAAAAAA/Whanos/raw/main/images/befunge/b93.js
+RUN wget --progress=dot:giga https://github.com/TEAM-AAAAAAAAAAAAAAAA/Whanos/raw/main/images/befunge/b93.js
 
 COPY . /app
+
 WORKDIR /app
 
 CMD [ "node", "b93.js", "main.bf" ]

@@ -1,0 +1,43 @@
+---
+
+- name: Upload gcp credentials
+  ansible.builtin.copy:
+    src: "whanos_gcp_creds.json"
+    dest: /var/lib/jenkins/whanos_gcp_creds.json
+    mode: preserve
+  become: true
+
+- name: Zip docker images folder
+  community.general.archive:
+    path: "{{ playbook_dir }}/jenkins/files/docker_images"
+    dest: docker_images.zip
+    format: zip
+    mode: 0600
+  delegate_to: localhost
+  become: false
+
+- name: Zip scripts folder
+  community.general.archive:
+    path: "{{ playbook_dir }}/jenkins/files/scripts"
+    dest: scripts.zip
+    format: zip
+    mode: 0600
+  delegate_to: localhost
+  become: false
+
+- name: Upload docker images
+  ansible.builtin.unarchive:
+    src: docker_images.zip
+    dest: /var/lib/jenkins
+  become: true
+
+- name: Upload scripts
+  ansible.builtin.unarchive:
+    src: scripts.zip
+    dest: /var/lib/jenkins
+  become: true
+
+- name: Install tools from scripts
+  ansible.builtin.command: "/var/lib/jenkins/scripts/main.sh {{ gcp.project_user }} {{ gcp.project_id }} {{ gcp.project_region }} {{ gcp.creds }}"
+  changed_when: false
+  become: true

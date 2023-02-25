@@ -1,0 +1,21 @@
+name: linting
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ansible-lint:
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint-action@main
+        with:
+          path: "ansible/"

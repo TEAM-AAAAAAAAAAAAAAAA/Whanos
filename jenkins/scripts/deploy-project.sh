@@ -9,4 +9,4 @@ REPO_LANGUAGE=$2
 helm upgrade whanos-"$REPO_LANGUAGE" /var/lib/jenkins/kubernetes \
 --set image.name=whanos-"$REPO_LANGUAGE" \
 --set image.image="$GCP_PROJECT_ID"/whanos-"$REPO_LANGUAGE" \
--f whanos.yml
+-f whanos.yml --install

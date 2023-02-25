@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   annotations:
     rollme: {{ randAlphaNum 5 | quote }}
-  name: {{ .Release.Name }}-deploy_build
+  name: {{ .Release.Name }}-deploybuild
 spec:
   selector:
     matchLabels:
@@ -32,12 +32,12 @@ spec:
       containers:
       - name: {{ .Values.image.name }}
         image: {{ .Values.image.image }}
-        {{- if .Values.deploy_build.resources }}
-        resources: {{ .Values.deploy_build.resources | toJson }}
+        {{- if .Values.deploybuild.resources }}
+        resources: {{ .Values.deploybuild.resources | toJson }}
         {{- end }}
-        {{- if .Values.deploy_build.ports }}
+        {{- if .Values.deploybuild.ports }}
         ports:
-          {{- range .Values.deploy_build.ports }}
+          {{- range .Values.deploybuild.ports }}
           - containerPort: {{ . }}
           {{- end }}
         {{- end }}
@@ -46,9 +46,9 @@ spec:
         app: {{ .Release.Name }}
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
-  replicas: {{ .Values.deploy_build.replicas }}
+  replicas: {{ .Values.deploybuild.replicas }}
 
-{{- if .Values.deploy_build.ports }}
+{{- if .Values.deploybuild.ports }}
 
 ---
 
@@ -59,7 +59,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    {{- range .Values.deploy_build.ports }}
+    {{- range .Values.deploybuild.ports }}
     - targetPort: {{ . }}
       protocol: TCP
       port: {{ . }}

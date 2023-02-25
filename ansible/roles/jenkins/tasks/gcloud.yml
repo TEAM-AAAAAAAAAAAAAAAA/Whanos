@@ -1,0 +1,46 @@
+---
+
+- name: Install gcloud apt deps
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - gnupg
+  become: true
+
+- name: Add gcloud apt key
+  ansible.builtin.apt_key:
+    url: "{{ gcp.gcloud_apt_key }}"
+    state: present
+  become: true
+
+- name: Add gcloud apt repo
+  ansible.builtin.apt_repository:
+    repo: "{{ gcloud_apt_repo }}"
+    state: present
+  become: true
+
+- name: Install gcloud
+  ansible.builtin.apt:
+    name: google-cloud-cli
+    state: present
+  become: true
+
+- name: Configure gcloud for jenkins account
+  become: true
+  become_user: jenkins
+  block:
+    - name: Activate service account
+      ansible.builtin.command: gcloud auth activate-service-account --key-file={{ gcp.service_account_key_file }}
+      changed_when: false
+    - name: Configure docker with gcloud
+      ansible.builtin.command: "gcloud auth configure-docker {{ gcp.project_region }}-docker.pkg.dev"
+      changed_when: false
+    - name: Set gcp compute region
+      ansible.builtin.command: "gcloud config set compute/region {{ gcp.project_region }}"
+      changed_when: false
+    - name: Get GKE credentials
+      ansible.builtin.command: "gcloud container clusters get-credentials {{ gcp.cluster_name }}-gke"
+      changed_when: false

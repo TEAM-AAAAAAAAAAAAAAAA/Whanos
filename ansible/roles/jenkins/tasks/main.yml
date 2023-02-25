@@ -5,7 +5,7 @@
   ansible.builtin.import_tasks:
     file: tools.yml
 
-- name: Install Jenkins
+- name: Install java
   ansible.builtin.apt:
     name: "{{ java_version }}"
     state: present
@@ -19,11 +19,10 @@
   ansible.builtin.apt_repository:
     repo: "{{ jenkins.jenkins_repo }}"
     state: present
-    become: true
 
 - name: Update apt cache
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Install Jenkins
   ansible.builtin.apt:
@@ -36,11 +35,12 @@
     state: started
 
 - name: Wait for jenkins to start
-  wait_for: timeout=60
+  ansible.builtin.wait_for:
+    timeout: 60
   delegate_to: localhost
 
 - name: Get jenkins initial admin password
-  ansible.builtin.shell: "cat /var/lib/jenkins/secrets/initialAdminPassword"
+  ansible.builtin.command: "cat /var/lib/jenkins/secrets/initialAdminPassword"
   register: jenkins_password
   delegate_to: jenkins
-  changed_when: false
+  changed_when: jenkins_password.rc == 0

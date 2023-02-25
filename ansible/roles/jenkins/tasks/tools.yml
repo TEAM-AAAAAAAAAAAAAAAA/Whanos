@@ -8,18 +8,20 @@
   become: true
 
 - name: Zip docker images folder
-  ansible.builtin.archive:
+  community.general.archive:
     path: "{{ playbook_dir }}/jenkins/files/docker_images"
     dest: docker_images.zip
     format: zip
+    mode: 0600
   delegate_to: localhost
   become: false
 
 - name: Zip scripts folder
-  ansible.builtin.archive:
+  community.general.archive:
     path: "{{ playbook_dir }}/jenkins/files/scripts"
     dest: scripts.zip
     format: zip
+    mode: 0600
   delegate_to: localhost
   become: false
 
@@ -36,5 +38,6 @@
   become: true
 
 - name: Install tools from scripts
-  ansible.builtin.shell: "/var/lib/jenkins/scripts/main.sh {{ gcp.project_user }} {{ gcp.project_id }} {{ gcp.project_region }} {{ gcp.creds }}"
+  ansible.builtin.command: "/var/lib/jenkins/scripts/main.sh {{ gcp.project_user }} {{ gcp.project_id }} {{ gcp.project_region }} {{ gcp.creds }}"
+  changed_when: false
   become: true

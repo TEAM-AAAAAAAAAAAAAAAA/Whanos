@@ -1,5 +1,5 @@
 all:
-	cd ansible && ansible-playbook -i inventory playbook.yml -u deploy --key-file ../whanos_deployment -vvv
+	cd ansible && ansible-playbook -i inventory roles/jenkins.yml -u deploy --key-file ../whanos_deployment -vvv
 
 ansible-lint:
 	@find ansible -type f -name "*.yml" -exec ansible-lint {} \;

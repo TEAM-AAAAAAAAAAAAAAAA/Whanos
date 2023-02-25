@@ -73,6 +73,6 @@
 - name: Install kubectl
   ansible.builtin.command:
     cmd: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-    creates: /usr/bin/kubectl
+    creates: /usr/local/bin/kubectl
   changed_when: false
   become: true

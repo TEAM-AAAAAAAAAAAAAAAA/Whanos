@@ -38,9 +38,14 @@
   ansible.builtin.wait_for:
     timeout: 60
   delegate_to: localhost
+  become: false
 
 - name: Get jenkins initial admin password
   ansible.builtin.command: "cat /var/lib/jenkins/secrets/initialAdminPassword"
   register: jenkins_password
   delegate_to: jenkins
   changed_when: jenkins_password.rc == 0
+
+- name: Configure gcloud for jenkins user
+  ansible.builtin.import_tasks:
+    file: gcloud.yml

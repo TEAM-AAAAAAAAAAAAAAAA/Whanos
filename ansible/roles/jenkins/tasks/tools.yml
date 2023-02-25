@@ -37,7 +37,42 @@
     dest: /var/lib/jenkins
   become: true
 
-- name: Install tools from scripts
-  ansible.builtin.command: "/var/lib/jenkins/scripts/main.sh {{ gcp.project_user }} {{ gcp.project_id }} {{ gcp.project_region }} {{ gcp.creds }}"
+- name: Download docker install script
+  ansible.builtin.get_url:
+    url: https://get.docker.com
+    dest: /tmp/docker_install.sh
+    mode: 0755
+
+- name: Install docker
+  ansible.builtin.command:
+    cmd: /tmp/docker_install.sh
+    creates: /usr/bin/docker
+  changed_when: false
+  become: true
+
+- name: Download helm install script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+    dest: /tmp/helm_install.sh
+    mode: 0755
+
+- name: Install helm
+  ansible.builtin.command:
+    cmd: /tmp/helm_install.sh
+    creates: /usr/bin/helm
+  changed_when: false
+  become: true
+
+- name: Download kubectl install script
+  ansible.builtin.get_url:
+    url: https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
+    dest: /tmp/kubectl
+    mode: 0755
+  changed_when: false
+
+- name: Install kubectl
+  ansible.builtin.command:
+    cmd: sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    creates: /usr/bin/kubectl
   changed_when: false
   become: true

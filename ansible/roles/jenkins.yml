@@ -1,0 +1,6 @@
+---
+- name: Jenkins
+  hosts: jenkins
+  become: true
+  roles:
+    - jenkins

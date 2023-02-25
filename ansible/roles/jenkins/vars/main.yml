@@ -1,0 +1,17 @@
+---
+# vars file for jenkins
+
+# General variables
+java_version: "default-jre"
+
+# GCP variables
+gcp:
+  project_id: "nomadic-mesh-376709"
+  project_user: "whanos"
+  project_region: "europe-west4"
+  creds: "/var/lib/jenkins/whanos_gcp_creds.json"
+
+# Jenkins variables
+jenkins:
+  jenkins_key: "https://pkg.jenkins.io/debian/jenkins.io.key"
+  jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"

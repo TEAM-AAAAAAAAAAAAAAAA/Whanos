@@ -12,6 +12,3 @@ helm-lint:
 
 terraform-fmt:
 	@find terraform -type f -name "*.tf" -exec terraform fmt {} \;
-
-tests-docker:
-	@./tests/docker.sh

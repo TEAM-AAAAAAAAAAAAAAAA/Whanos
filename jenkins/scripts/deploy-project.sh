@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -eu
 
 GCP_PROJECT_ID=$1
 REPO_LANGUAGE=$2

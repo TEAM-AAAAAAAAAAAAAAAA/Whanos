@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -eu
 
 PROJECT_USER=$1
 PROJECT_ID=$2

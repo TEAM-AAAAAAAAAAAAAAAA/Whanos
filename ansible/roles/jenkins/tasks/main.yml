@@ -45,6 +45,22 @@
   register: jenkins_password
   changed_when: jenkins_password.rc == 0
 
+- name: Get jenkins-cli jarfile
+  get_url:
+    url: "https://{{ jenkins.jenkins_ip }}:8080/jnlpJars/jenkins-cli.jar"
+    dest: "/tmp/jenkins-cli.jar"
+  register: jenkins_cli
+  retries: 5
+  delay: 10
+  until: jenkins_cli is success
+
+- name: Install jenkins plugins
+  command: >
+    java -jar /tmp/jenkins-cli.jar -s https://{{ jenkins.jenkins_ip }}:8080/ -i /var/lib/jenkins/secrets/initialAdminPassword install-plugin {{ item }}
+    creates=/var/lib/jenkins/plugins/{{ item }}.jpi
+  with_items: "{{ jenkins.jenkins_plugins }}"
+  notify: restart jenkins
+
 - name: Configure gcloud for jenkins user
   ansible.builtin.import_tasks:
     file: gcloud.yml

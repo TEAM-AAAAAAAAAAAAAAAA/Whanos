@@ -1,14 +1,22 @@
 ---
+
+{{- $release := .Release.Name -}}
+{{- $resources := .Values.deploybuild.resources -}}
+{{- $ports := .Values.deploybuild.ports -}}
+{{- $replicas := .Values.deploybuild.replicas -}}
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
     rollme: {{ randAlphaNum 5 | quote }}
-  name: {{ .Release.Name }}-deploybuild
+  name: {{ $release }}-deploybuild
 spec:
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ $release }}
   template:
     spec:
 {{- /*
@@ -34,39 +42,40 @@ spec:
       containers:
       - name: {{ .Values.image.name }}
         image: {{ .Values.image.image }}
-        {{- if .Values.deploybuild.resources }}
-        resources: {{ .Values.deploybuild.resources | toJson }}
+        {{- if $resources }}
+        resources: {{ $resources | toJson }}
         {{- end }}
-        {{- if .Values.deploybuild.ports }}
+        {{- if $ports }}
         ports:
-          {{- range .Values.deploybuild.ports }}
+          {{- range $ports }}
           - containerPort: {{ . }}
           {{- end }}
         {{- end }}
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: {{ $release }}
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
-  replicas: {{ .Values.deploybuild.replicas }}
+  replicas: {{ $replicas }}
 
-{{- if .Values.deploybuild.ports }}
+{{- if $ports }}
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-lb
+  name: {{ $release }}-loadbalancer
 spec:
   type: LoadBalancer
   ports:
-    {{- range .Values.deploybuild.ports }}
+    {{- range $ports }}
     - targetPort: {{ . }}
       protocol: TCP
       port: {{ . }}
       name: {{ . | quote }}
     {{- end }}
   selector:
-    app: {{ .Release.Name }}
+    app: {{ $release }}
+
 {{- end }}

@@ -17,3 +17,13 @@ gcp:
 jenkins:
   jenkins_key: "https://pkg.jenkins.io/debian/jenkins.io.key"
   jenkins_repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+  jenkins_ip: "hostvars[inventory_hostname]['ansible_default_ipv4']['address']"
+  jenkins_plugins:
+    - cloudbees-folder
+    - credentials
+    - github
+    - job-dsl
+    - script-security
+    - structs
+    - role-strategy
+    - ws-cleanup"

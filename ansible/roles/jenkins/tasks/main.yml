@@ -45,6 +45,23 @@
   register: jenkins_password
   changed_when: jenkins_password.rc == 0
 
+- name: Install jenkins plugins
+  community.general.jenkins_plugin:
+    name: "{{ item }}"
+  register: jenkins_plugins
+  with_list: "{{ jenkins.jenkins_plugins }}"
+
+- name: Restart Jenkins
+  ansible.builtin.service:
+    name: jenkins
+    state: restarted
+
+- name: Wait for jenkins to start
+  ansible.builtin.wait_for:
+    timeout: 60
+  delegate_to: localhost
+  become: false
+
 - name: Configure gcloud for jenkins user
   ansible.builtin.import_tasks:
     file: gcloud.yml

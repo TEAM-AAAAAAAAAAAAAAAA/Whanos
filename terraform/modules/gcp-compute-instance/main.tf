@@ -45,4 +45,13 @@ resource "google_compute_instance" "jenkins_server" {
       nat_ip = google_compute_address.jenkins_static_ip.address
     }
   }
+
+  # service_account {
+  #   email  = var.service_account_email
+  #   scopes = ["cloud-platform"]
+  # }
+
+  metadata = {
+    "ssh-keys" = "deploy:${file(var.ssh_public_key_path)}"
+  }
 }

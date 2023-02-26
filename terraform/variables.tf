@@ -17,7 +17,7 @@ variable "service_account_email" {
   description = "GCP service account email"
 }
 
-variable "private_key" {
+variable "ssh_public_key_path" {
   type        = string
-  description = "private key for service account"
+  description = "path to ssh public key"
 }

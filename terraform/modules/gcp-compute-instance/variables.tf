@@ -21,10 +21,10 @@ variable "service_account_email" {
   description = "value for service account email"
 }
 
-variable "private_key" {
+variable "ssh_public_key_path" {
   type        = string
-  default     = "~/.ssh/id_rsa"
-  description = "value for private key"
+  default     = "~/.ssh/whanos_deployment.pub"
+  description = "value for public key path"
 }
 
 variable "user" {

@@ -2,7 +2,7 @@ all:
 	cd ansible && ansible-playbook -i inventory roles/jenkins.yml -u deploy --key-file ../whanos_deployment -vvv
 
 ansible-lint:
-	@find ansible -type f -name "*.yml" -exec ansible-lint {} \;
+	@ansible-lint ansible
 
 dockerfile-lint:
 	@find images -type f -name "*.base" -o -name "*.standalone" -exec ./hadolint --ignore DL3006 {} \;

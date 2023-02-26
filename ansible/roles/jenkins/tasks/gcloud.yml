@@ -33,7 +33,8 @@
   become_user: jenkins
   block:
     - name: Activate service account
-      ansible.builtin.command: "gcloud auth activate-service-account {{ gcp.project_user }}@{{ gcp.project_id }}.iam.gserviceaccount.com --key-file={{ gcp.creds }} --project={{ gcp.project_id }}"
+      ansible.builtin.command: "gcloud auth activate-service-account {{ gcp.project_user }}@{{ gcp.project_id }}.iam.gserviceaccount.com \
+      --key-file={{ gcp.creds }} --project={{ gcp.project_id }}"
       changed_when: false
     - name: Configure docker with gcloud
       ansible.builtin.command: "gcloud auth configure-docker {{ gcp.project_region }}-docker.pkg.dev"

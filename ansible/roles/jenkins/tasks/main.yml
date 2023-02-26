@@ -46,7 +46,7 @@
   changed_when: jenkins_password.rc == 0
 
 - name: Get jenkins-cli jarfile
-  get_url:
+  ansible.builtin.get_url:
     url: "https://{{ jenkins.jenkins_ip }}:8080/jnlpJars/jenkins-cli.jar"
     dest: "/tmp/jenkins-cli.jar"
   register: jenkins_cli
@@ -55,7 +55,7 @@
   until: jenkins_cli is success
 
 - name: Install jenkins plugins
-  command: >
+  ansible.builtin.command: >
     java -jar /tmp/jenkins-cli.jar -s https://{{ jenkins.jenkins_ip }}:8080/ -i /var/lib/jenkins/secrets/initialAdminPassword install-plugin {{ item }}
     creates=/var/lib/jenkins/plugins/{{ item }}.jpi
   with_items: "{{ jenkins.jenkins_plugins }}"

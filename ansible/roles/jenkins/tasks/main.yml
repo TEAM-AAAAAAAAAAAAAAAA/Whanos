@@ -43,7 +43,6 @@
 - name: Get jenkins initial admin password
   ansible.builtin.command: "cat /var/lib/jenkins/secrets/initialAdminPassword"
   register: jenkins_password
-  delegate_to: jenkins
   changed_when: jenkins_password.rc == 0
 
 - name: Configure gcloud for jenkins user

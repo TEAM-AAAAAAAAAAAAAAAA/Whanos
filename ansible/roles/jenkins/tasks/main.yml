@@ -62,6 +62,10 @@
   delegate_to: localhost
   become: false
 
+- name: Jenkins Jobs
+  ansible.builtin.import_tasks:
+    file: jenkins_jobs.yml
+
 - name: Configure gcloud for jenkins user
   ansible.builtin.import_tasks:
     file: gcloud.yml

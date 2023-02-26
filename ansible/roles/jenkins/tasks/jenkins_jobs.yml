@@ -1,0 +1,14 @@
+---
+# tasks to configure jenkins jobs
+
+- name: Create build base image job
+  community.general.jenkins_script:
+    script: "{{ lookup('file', 'jenkins_jobs/build_base_image.groovy') }}"
+    user: "admin"
+    password: "{{ jenkins_password.stdout }}"
+
+- name: Create link project job
+  community.general.jenkins_script:
+    script: "{{ lookup('file', 'jenkins_jobs/link_project.groovy') }}"
+    user: "admin"
+    password: "{{ jenkins_password.stdout }}"

@@ -10,7 +10,7 @@ gcp:
   project_user: "whanos"
   project_region: "europe-west4"
   creds: "/var/lib/jenkins/whanos_gcp_creds.json"
-  gcloud_apt_key: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+  gcloud_apt_key: "https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0xB53DC80D13EDEF05"
   gcloud_apt_repo: "deb https://packages.cloud.google.com/apt cloud-sdk main"
 
 # Jenkins variables

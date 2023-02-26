@@ -8,6 +8,7 @@
     - apt-transport-https
     - ca-certificates
     - gnupg
+    - acl
   become: true
 
 - name: Add gcloud apt key
@@ -43,5 +44,5 @@
       ansible.builtin.command: "gcloud config set compute/region {{ gcp.project_region }}"
       changed_when: false
     - name: Get GKE credentials
-      ansible.builtin.command: "gcloud container clusters get-credentials {{ gcp.cluster_name }}-gke"
+      ansible.builtin.command: "gcloud container clusters get-credentials {{ gcp.project_id }}-gke"
       changed_when: false

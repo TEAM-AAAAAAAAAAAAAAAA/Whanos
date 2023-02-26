@@ -49,7 +49,7 @@
   community.general.jenkins_plugin:
     name: "{{ item }}"
   register: jenkins_plugins
-  with_dict: "{{ jenkins.jenkins_plugins }}"
+  with_list: "{{ jenkins.jenkins_plugins }}"
 
 - name: Restart Jenkins
   ansible.builtin.service:

@@ -6,6 +6,4 @@ ONBUILD WORKDIR /app
 
 ONBUILD RUN npm install dependencies --production=false
 
-ONBUILD EXPOSE 3000
-
 ONBUILD CMD ["node", "."]

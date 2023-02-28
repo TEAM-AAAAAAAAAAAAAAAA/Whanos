@@ -7,4 +7,3 @@ ONBUILD WORKDIR /app
 ONBUILD RUN pip3 install --no-cache-dir -r requirements.txt
 
 ONBUILD CMD [ "python", "-m", "app" ]
-

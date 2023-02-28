@@ -6,6 +6,4 @@ WORKDIR /app
 
 RUN npm install dependencies --production=false
 
-EXPOSE 3000
-
 CMD [ "node", "." ]

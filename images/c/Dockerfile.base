@@ -8,4 +8,4 @@ ONBUILD CMD make
 
 ONBUILD RUN rm -rf app Makefile
 
-ONBUILD RUN ["./compiled-app"]
+ONBUILD CMD ["./compiled-app"]

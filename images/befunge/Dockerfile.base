@@ -5,6 +5,7 @@ RUN npm install befunge93@^1.0.5
 RUN wget https://github.com/TEAM-AAAAAAAAAAAAAAAA/Whanos/raw/main/images/befunge/b93.js
 
 ONBUILD COPY . /app
+
 ONBUILD WORKDIR /app
 
 ONBUILD CMD [ "node", "b93.js", "app/main.bf"]

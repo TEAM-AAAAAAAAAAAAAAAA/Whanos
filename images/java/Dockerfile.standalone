@@ -12,4 +12,4 @@ COPY --from=builder /app /app
 
 WORKDIR /app
 
-CMD [ "java", "-jar", "app.jar" ]
+# CMD [ "java", "-jar", "app.jar" ]
